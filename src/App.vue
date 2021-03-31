@@ -1,7 +1,7 @@
 <template>
   <div>
-    <Header />
-    <Drawer />
+    <Header @closeDrawer="drawerStatus = $event" />
+    <Drawer :drawerStatus="drawerStatus" :params="params" />
     <router-view class="main" />
   </div>
 </template>
@@ -11,12 +11,22 @@ import Drawer from "./components/Drawer.vue";
 export default {
   data() {
     return {
-      
+      drawerStatus: false,
+      params:this.$route.name
     };
   },
-  components:{
-    Header,Drawer
-  }
+  components: {
+    Header,
+    Drawer,
+  },
+  watch: {
+    drawerStatus: function() {
+      console.log(this.drawerStatus);
+    },
+    $route(to) {
+      this.params = to.name;
+    },
+  },
 };
 </script>
 <style>

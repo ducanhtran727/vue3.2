@@ -1,5 +1,5 @@
 <template>
-  <div class="drawer">
+  <div :class="drawerStatus ? 'drawer closeDrawer' : 'drawer'">
     <div class="top-drawer">
       <div class="item-drawer dashboard">
         <img :src="dashboardIcon" />
@@ -76,6 +76,7 @@ import intercomIcon from "../assets/img/intercom.png";
 import settingIcon from "../assets/img/settings.png";
 import logoutIcon from "../assets/img/logout.png";
 export default {
+  props: ["drawerStatus", "params"],
   data() {
     return {
       dashboardIcon,
@@ -89,28 +90,28 @@ export default {
       intercomIcon,
       settingIcon,
       logoutIcon,
-      params: this.$route.name,
     };
   },
   watch: {
-    $route(to) {
-      this.params = to.name;
+    params: function() {
+      document
+        .querySelectorAll(".item-drawer")
+        .forEach((item) => item.classList.remove("active"));
+      document.querySelector(`.${this.params}`).classList.add("active");
+      console.log(this.params);
     },
   },
-//   mounted() {
-//     document.querySelector(`.${this.params}`).classList.add("active");
-//   },
-  beforeUpdated() {
-    document
-      .querySelectorAll(".item-drawer")
-      .forEach((item) => item.classList.remove("active"));
-  },
-  updated(){
-      document
-      .querySelectorAll(".item-drawer")
-      .forEach((item) => item.classList.remove("active"));
-      document.querySelector(`.${this.params}`).classList.add("active");
-  }
+  //   mounted() {
+  //     document.querySelector(`.${this.params}`).classList.add("active");
+  //   },
+  // beforeUpdated() {
+  //   if(this.drawerStatus){
+  //     document.querySelector('.drawer').classList.remove('closeDrawer')
+  //   }else{
+  //     document.querySelector('.drawer').classList.add('closeDrawer')
+  //   }
+  //   console.log(this.drawerStatus)
+  // },
 };
 </script>
 <style scoped>
@@ -119,6 +120,7 @@ export default {
   width: 16vw;
   background-color: #ffffff;
   position: fixed;
+  transition: all 0.5s;
   left: 0;
   top: 15vh;
   bottom: 3vh;
@@ -204,5 +206,9 @@ export default {
 }
 .item-text:hover {
   color: #4070ff;
+}
+.closeDrawer {
+  left: -17vw;
+  transition: all 0.5s;
 }
 </style>

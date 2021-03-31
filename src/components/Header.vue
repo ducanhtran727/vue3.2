@@ -1,41 +1,59 @@
 <template>
   <div class="header">
     <div class="logoBox">
-      <img
-        :src="logoIcon"
-        class="logo"
-      />
+      <img :src="logoIcon" class="logo" />
       <div class="logoTitle">
         <h3>Elementor</h3>
         <p>qa@elementor.io</p>
       </div>
-      <img class="iconLeft" :src="arrow">
+      <img class="iconLeft" :src="arrow" @click="closeDrawer()" />
     </div>
     <div class="searchBox">
-      <img :src="iconSearch" class="searchIcon">
-      <input type="text" placeholder="Search for people , document,...">
+      <img :src="iconSearch" class="searchIcon" />
+      <input type="text" placeholder="Search for people , document,..." />
     </div>
     <div class="iconBox">
-      <div class="icon bellBox"><img class="icon" :src="bell"><span></span></div>
-      <div class="avatar avatarBox"><img class="avatar" :src="avatar"><span>+</span></div>
-      <img class="icon" :src="arrow">
+      <div class="icon bellBox">
+        <img class="icon" :src="bell" /><span></span>
+      </div>
+      <div class="avatar avatarBox">
+        <img class="avatar" :src="avatar" /><span>+</span>
+      </div>
+      <img class="icon" :src="arrow" />
     </div>
   </div>
 </template>
 
 <script>
-import iconSearch from '../assets/img/search.svg';
-import arrow from '../assets/img/arrow.svg';
-import avatar from '../assets//img/avatar.png';
-import bell from '../assets/img/bell.png';
-import logoIcon from '../assets/logo.png'
+import iconSearch from "../assets/img/search.svg";
+import arrow from "../assets/img/arrow.svg";
+import avatar from "../assets//img/avatar.png";
+import bell from "../assets/img/bell.png";
+import logoIcon from "../assets/logo.png";
 
-export default{
-  data(){
-    return{
-      iconSearch,arrow,avatar,bell,logoIcon
-    }
-  }
+export default {
+  data() {
+    return {
+      iconSearch,
+      arrow,
+      avatar,
+      bell,
+      logoIcon,
+      drawerStatus: false,
+    };
+  },
+  methods: {
+    closeDrawer() {
+      this.drawerStatus = !this.drawerStatus;
+      this.$emit("closeDrawer", this.drawerStatus);
+      console.log(this.drawerStatus);
+      if(this.drawerStatus){
+        document.querySelector('.iconLeft').classList.add('upDown')
+      }else{
+        document.querySelector('.iconLeft').classList.remove('upDown')
+      }
+    },
+  },
 };
 </script>
 
@@ -49,6 +67,10 @@ export default{
   display: flex;
   align-items: center;
 }
+.upDown {
+  transform: rotate(180deg);
+  transition: all .5s;
+}
 .logoBox {
   height: 100%;
   width: 18%;
@@ -56,55 +78,56 @@ export default{
   align-items: center;
   justify-content: space-evenly;
 }
-.iconLeft{
+.iconLeft {
   height: 22%;
   width: 6%;
+  transition: all .5s;
   cursor: pointer;
 }
-.bellBox img{
+.bellBox img {
   width: 100%;
   height: 100%;
 }
-.bellBox{
+.bellBox {
   position: relative;
 }
-.searchIcon{
+.searchIcon {
   height: 35%;
   cursor: pointer;
 }
-.bellBox span{
- position: absolute;
- height: 5px;
- width: 5px;
- background-color: red;
- border-radius: 50%;
+.bellBox span {
+  position: absolute;
+  height: 5px;
+  width: 5px;
+  background-color: red;
+  border-radius: 50%;
 }
-.logo{
+.logo {
   height: 65%;
   cursor: pointer;
 }
-.logoTitle h3{
+.logoTitle h3 {
   margin: 5px 0;
 }
 .logoTitle p {
   margin: 0;
   color: gray;
 }
-.searchBox{
+.searchBox {
   display: flex;
   align-items: center;
   justify-content: flex-end;
   height: 100%;
   width: 60%;
 }
-.searchBox input{
+.searchBox input {
   border: none;
   outline: none;
   height: 80%;
   width: 90%;
   padding: 0 20px;
 }
-.iconBox{
+.iconBox {
   height: 100%;
   width: 22%;
   display: flex;
@@ -112,22 +135,22 @@ export default{
   justify-content: space-evenly;
   cursor: pointer;
 }
-.icon{
+.icon {
   width: 6%;
   height: 22%;
   cursor: pointer;
 }
-.avatar{
+.avatar {
   width: 15%;
   height: 50%;
   position: relative;
   cursor: pointer;
 }
-.avatarBox img{
+.avatarBox img {
   width: 100%;
   height: 100%;
 }
-.avatarBox span{
+.avatarBox span {
   width: 15px;
   height: 15px;
   background-color: palevioletred;
