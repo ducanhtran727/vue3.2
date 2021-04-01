@@ -58,7 +58,7 @@
       </div>
       <div class="item-drawer-bot">
         <img :src="logoutIcon" class="addIcon" />
-        <div class="item-text">{{ params }}</div>
+        <div class="item-text">Log out</div>
       </div>
     </div>
   </div>
