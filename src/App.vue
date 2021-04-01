@@ -1,8 +1,11 @@
 <template>
   <div>
     <Header @closeDrawer="drawerStatus = $event" />
-    <Drawer :drawerStatus="drawerStatus" :params="params" />
-    <router-view class="main" />
+    <div class="box-main">
+      <Drawer :drawerStatus="drawerStatus" :params="params" />
+      <router-view class="main" />
+    </div>
+    
   </div>
 </template>
 <script>
@@ -39,10 +42,13 @@ body {
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 .main {
-  width: 82vw;
+  width: 81vw;
   height: 82vh;
-  /* position: fixed; */
+  position: relative;
   top: 15vh;
   left: 18vw;
+}
+.box-main{
+  display: flex;
 }
 </style>
