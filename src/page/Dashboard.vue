@@ -4,8 +4,9 @@
     <div class="table" v-else>
       <div class="title-table">
         <div class="col-1">Name</div>
-        <div class="col-2">Id</div>
+        
         <div class="col-3">Email</div>
+        <div class="col-2">Id</div>
       </div>
       <row-table
         v-for="(item, index) in contentPage"
@@ -14,10 +15,15 @@
       ></row-table>
       <div class="bot-table">
         <div>Items per Page</div>
-        <input type="text" v-model="rows" />
+        <select v-model="rows">
+          <option value=5>5</option>
+          <option value=10>10</option>
+        </select>
         <button class="prev" @click="prevPage">Prev</button>
         <button class="next" @click="nextPage">Next</button>
-        <div>Page current : {{ count + 1 }} / {{dataContent.length / rows}}</div>
+        <div>
+          Page current : {{ count + 1 }} / {{ dataContent.length / rows }}
+        </div>
       </div>
       <!-- <div>{{ dataContent }}</div> -->
     </div>
@@ -72,10 +78,7 @@ export default {
       const param2 = param1 + this.rows;
       console.log(param1);
       console.log(param2);
-      return this.dataContent.slice(
-        param1,
-        param2
-      );
+      return this.dataContent.slice(param1, param2);
     },
   },
 };
@@ -107,11 +110,11 @@ export default {
   border-radius: 0 0 5px 5px;
   justify-content: center;
 }
-.bot-table input {
+.bot-table select {
   margin-left: 10px;
-  width: 15px;
-  height: 15px;
-  padding: 10px;
+  width: 40px;
+  height: 35px;
+  /* padding: 10px; */
 }
 .next {
   padding: 10px;
@@ -134,7 +137,7 @@ export default {
   border: 1px solid black;
 }
 .col-1 {
-  width: 40%;
+  width: 50%;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -143,11 +146,11 @@ export default {
   font-weight: 550;
 }
 .col-2 {
-  width: 30%;
+  width: 20%;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  margin-left: 2%;
+  justify-content: flex-end;
+  margin-right: 2%;
   font-weight: 550;
   font-size: 18px;
 }
