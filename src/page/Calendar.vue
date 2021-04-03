@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Storer</h2>
+    <h2>Calendar</h2>
   </div>
 </template>
 
@@ -12,7 +12,5 @@ export default{
 </script>
 
 <style scoped>
-  div{
-    text-align: center;
-  }
+  
 </style>

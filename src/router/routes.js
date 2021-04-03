@@ -7,7 +7,7 @@ import { createRouter,createWebHistory } from "vue-router";
 const routes = [
     {path:'/calendar', name:'calendar', component:Calendar},
     {path:'/chat', name:'chat', component:Chat},
-    {path:'/dashboard', name:'dashboard', component:Dashboard},
+    {path:'/dashboard', name:'dashboard', component:Dashboard ,},
     {path:'/documents', name:'documents', component:Documents},
     {path:'/store', name:'store', component:Store },
 ]

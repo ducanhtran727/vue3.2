@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Storer</h2>
+    <h2>Team chat</h2>
   </div>
 </template>
 

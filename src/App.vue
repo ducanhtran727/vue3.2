@@ -47,6 +47,9 @@ body {
   position: relative;
   top: 15vh;
   left: 18vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .box-main{
   display: flex;
