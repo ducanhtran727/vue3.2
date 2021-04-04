@@ -4,7 +4,7 @@
     <div class="table" v-else>
       <div class="title-table">
         <div class="col-1">Name</div>
-        
+
         <div class="col-3">Email</div>
         <div class="col-2">Id</div>
       </div>
@@ -15,12 +15,12 @@
       ></row-table>
       <div class="bot-table">
         <div>Items per Page</div>
-        <select v-model="rows">
-          <option value=5>5</option>
-          <option value=10>10</option>
+        <select v-model="rows" :value="rows">
+          <option value="5">5</option>
+          <option value="10">10</option>
         </select>
-        <button class="prev" @click="prevPage">Prev</button>
-        <button class="next" @click="nextPage">Next</button>
+        <button class="prev" @click="prevPage" :disabled="prev">prev</button>
+        <button class="next" @click="nextPage" :disabled="next" >next</button>
         <div>
           Page current : {{ count + 1 }} / {{ dataContent.length / rows }}
         </div>
@@ -43,6 +43,8 @@ export default {
       count: 0,
       rows: 10,
       loading: true,
+      prev:true,
+      next:false
     };
   },
   methods: {
@@ -72,13 +74,31 @@ export default {
     };
     data();
   },
+  watch:{
+    count: function(){
+      if(this.count === 0){
+        this.prev = true
+      }else{
+        this.prev = false
+      }
+      if(this.count >= this.dataContent.length / this.rows - 1){
+        this.next = true
+      }else{
+        this.next = false
+      }
+    }
+  },
   computed: {
     contentPage() {
       const param1 = this.count * this.rows;
-      const param2 = param1 + this.rows;
+      const param2 = param1 / this.count;
+      let param3 = param1 + this.rows;
+      if (param2) {
+        param3 = param1 + param2;
+      }
       console.log(param1);
-      console.log(param2);
-      return this.dataContent.slice(param1, param2);
+      console.log(param3);
+      return this.dataContent.slice(param1, param3);
     },
   },
 };
