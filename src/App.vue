@@ -24,7 +24,7 @@ export default {
   },
   watch: {
     drawerStatus: function() {
-      console.log(this.drawerStatus);
+   
     },
     $route(to) {
       this.params = to.name;
@@ -50,6 +50,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 .box-main{
   display: flex;

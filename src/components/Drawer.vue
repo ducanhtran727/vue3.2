@@ -98,7 +98,7 @@ export default {
         .querySelectorAll(".item-drawer")
         .forEach((item) => item.classList.remove("active"));
       document.querySelector(`.${this.params}`).classList.add("active");
-      console.log(this.params);
+     
     },
   },
   //   mounted() {
@@ -189,13 +189,13 @@ export default {
   /* justify-content: ; */
 }
 .item-drawer-bot img {
-  width: 8%;
-  height: 45%;
+  width: 24px;
+  height: 24px;
   padding-right: 10px;
 }
 .item-drawer img {
-  width: 7%;
-  height: 35%;
+  width: 24px;
+  height: 24px;
   padding-right: 10px;
 }
 .item-text {

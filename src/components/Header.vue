@@ -46,7 +46,6 @@ export default {
     closeDrawer() {
       this.drawerStatus = !this.drawerStatus;
       this.$emit("closeDrawer", this.drawerStatus);
-      console.log(this.drawerStatus);
       if(this.drawerStatus){
         document.querySelector('.iconLeft').classList.add('upDown')
       }else{

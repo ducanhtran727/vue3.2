@@ -1,31 +1,47 @@
 <template>
   <div>
     <div v-if="loading">Loading ...</div>
-    <div class="table" v-else>
-      <div class="title-table">
-        <div class="col-1">Name</div>
-
-        <div class="col-3">Email</div>
-        <div class="col-2">Id</div>
+    <div v-else class="box-table">
+      <div class="boxFilter">
+        <input
+          type="text"
+          v-model.number="searchValue"
+          placeholder="searchPost Id"
+        />
       </div>
-      <row-table
-        v-for="(item, index) in contentPage"
-        :key="index"
-        :itemContent="item"
-      ></row-table>
-      <div class="bot-table">
-        <div>Items per Page</div>
-        <select v-model="rows" :value="rows">
-          <option value="5">5</option>
-          <option value="10">10</option>
-        </select>
-        <button class="prev" @click="prevPage" :disabled="prev">prev</button>
-        <button class="next" @click="nextPage" :disabled="next" >next</button>
-        <div>
-          Page current : {{ count + 1 }} / {{ dataContent.length / rows }}
+      <div class="table">
+        <div class="title-table">
+          <div class="col-1">Name</div>
+          <div class="col-3">Email</div>
+          <div class="col-2">Id</div>
         </div>
+        <RowTable
+          v-for="(item, index) in contentPage"
+          :key="index"
+          :itemContent="item"
+        ></RowTable>
+        <div class="bot-table">
+          <div>Items per Page</div>
+          <select v-model.number="pagination.numberRow">
+            <option
+              :value="item.value"
+              v-for="item in dropdownRow"
+              :key="item.id"
+              >{{ item.value }}</option
+            >
+          </select>
+          <button class="prev" @click="prevPage" :disabled="prev">prev</button>
+          <button class="next" @click="nextPage" :disabled="next">next</button>
+          <div v-if="pagination.totalFilter">
+            Total Filtered : {{ pagination.totalFilter }}
+          </div>
+          <div v-else>
+            Page current : {{ pagination.currentPage + 1 }} /
+            {{ pagination.totalPage }}
+          </div>
+        </div>
+        <!-- <div>{{ dataContent }}</div> -->
       </div>
-      <!-- <div>{{ dataContent }}</div> -->
     </div>
   </div>
 </template>
@@ -40,23 +56,49 @@ export default {
   data() {
     return {
       dataContent: [],
-      count: 0,
-      rows: 10,
       loading: true,
-      prev:true,
-      next:false
+      prev: true,
+      next: false,
+      searchValue: null,
+      pagination: {
+        currentPage: 0,
+        totalPage: 50,
+        numberRow: 0,
+        totalFilter: null,
+      },
+      dropdownRow: [
+        {
+          id: 1,
+          value: 5,
+        },
+        {
+          id: 2,
+          value: 10,
+        },
+      ],
     };
   },
   methods: {
     nextPage() {
-      this.count++;
-      console.log(this.rows);
-      console.log(this.count);
+      this.pagination.currentPage++;
     },
     prevPage() {
-      this.count--;
-      console.log(this.rows);
-      console.log(this.count);
+      this.pagination.currentPage--;
+    },
+    conditionChange() {
+      if (this.pagination.currentPage === 0) {
+        this.prev = true;
+      } else {
+        this.prev = false;
+      }
+      if (
+        this.pagination.currentPage >=
+        this.contentFilter.length / this.pagination.numberRow - 1
+      ) {
+        this.next = true;
+      } else {
+        this.next = false;
+      }
     },
   },
   created() {
@@ -66,44 +108,67 @@ export default {
           "https://jsonplaceholder.typicode.com/comments"
         );
         this.dataContent = res?.data;
+        this.pagination = {
+          currentPage: 0,
+          numberRow: 10,
+          totalPage: this.dataContent.length / 10,
+          totalFilter: 0,
+        };
         this.loading = false;
-        console.log(this.dataContent);
       } catch (err) {
         console.log(err);
       }
     };
     data();
   },
-  watch:{
-    count: function(){
-      if(this.count === 0){
-        this.prev = true
-      }else{
-        this.prev = false
+  watch: {
+    "pagination.currentPage": function() {
+      this.conditionChange();
+    },
+    "pagination.numberRow": function() {
+      this.pagination.totalPage =
+        this.dataContent.length / this.pagination.numberRow;
+    },
+    searchValue: function() {
+      if (this.searchValue === "") {
+        this.pagination.totalFilter = null;
+        this.pagination.currentPage = 0;
+      } else {
+        this.pagination.totalFilter = this.contentFilter.length;
+        this.pagination.currentPage = 0;
       }
-      if(this.count >= this.dataContent.length / this.rows - 1){
-        this.next = true
-      }else{
-        this.next = false
-      }
-    }
+      this.conditionChange();
+    },
   },
   computed: {
+    contentFilter() {
+      return this.dataContent.filter((item) =>
+        this.searchValue ? item.postId === this.searchValue : item
+      );
+    },
     contentPage() {
-      const param1 = this.count * this.rows;
-      const param2 = param1 / this.count;
-      let param3 = param1 + this.rows;
-      if (param2) {
-        param3 = param1 + param2;
-      }
-      console.log(param1);
+      const param1 = this.pagination.currentPage * this.pagination.numberRow;
+      let param3 = param1 + this.pagination.numberRow;
       console.log(param3);
-      return this.dataContent.slice(param1, param3);
+      console.log(param1);
+      console.log(this.pagination.numberRow);
+      return this.contentFilter.slice(param1, param3);
     },
   },
 };
 </script>
 <style scoped>
+.boxFilter {
+  margin: 10px 0;
+}
+.box-table{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 .table {
   width: 90%;
   /* height: 90%; */
