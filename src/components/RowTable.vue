@@ -1,7 +1,6 @@
 <template>
   <div class="row">
     <div class="col-1">{{ itemContent.name }}</div>
-
     <div class="col-3">{{ itemContent.email }}</div>
     <div class="col-2">{{ itemContent.id }}</div>
   </div>
@@ -18,7 +17,7 @@ export default {
   display: flex;
   align-items: center;
   /* justify-content: space-around; */
-  height: 40px;
+  height: 28px;
   border-bottom: 1px solid gray;
   width: 100%;
 }

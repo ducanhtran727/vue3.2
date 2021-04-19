@@ -148,10 +148,7 @@ export default {
     },
     contentPage() {
       const param1 = this.pagination.currentPage * this.pagination.numberRow;
-      let param3 = param1 + this.pagination.numberRow;
-      console.log(param3);
-      console.log(param1);
-      console.log(this.pagination.numberRow);
+      let param3 = param1 + this.pagination.numberRow;     
       return this.contentFilter.slice(param1, param3);
     },
   },

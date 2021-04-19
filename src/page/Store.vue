@@ -1,12 +1,16 @@
 <template>
   <div>
-    <h2>Store</h2>
+    <div>{{editValue}}</div>
   </div>
 </template>
 
 <script>
 export default{
-
+  computed:{
+    editValue(){
+      return this.$store.state.editValue
+    }
+  }
 }
 
 </script>

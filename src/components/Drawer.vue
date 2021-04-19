@@ -119,10 +119,10 @@ export default {
   height: 82vh;
   width: 16vw;
   background-color: #ffffff;
-  position: fixed;
+  position: relative;
   transition: all 0.5s;
   left: 0;
-  top: 15vh;
+  top: 3vh;
   bottom: 3vh;
   margin-left: 1vw;
   border-radius: 10px;

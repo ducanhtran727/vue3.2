@@ -37,20 +37,22 @@ body {
   margin: 0;
   box-sizing: border-box;
   padding: 0;
-  background-color: #f1f3f8;
+  background-color: #273c75;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 .main {
-  width: 81vw;
+  width: 80vw;
   height: 82vh;
   position: relative;
-  top: 15vh;
-  left: 18vw;
+  top: 3vh;
+  left: 1vw;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  background-color: #f5f6fa;
+  border-radius: 5px;
 }
 .box-main{
   display: flex;

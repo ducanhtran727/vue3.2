@@ -3,23 +3,28 @@
     <div class="logoBox">
       <img :src="logoIcon" class="logo" />
       <div class="logoTitle">
-        <h3>Elementor</h3>
-        <p>qa@elementor.io</p>
+        <p>Icewall</p>
       </div>
-      <img class="iconLeft" :src="arrow" @click="closeDrawer()" />
     </div>
-    <div class="searchBox">
-      <img :src="iconSearch" class="searchIcon" />
-      <input type="text" placeholder="Search for people , document,..." />
-    </div>
-    <div class="iconBox">
-      <div class="icon bellBox">
-        <img class="icon" :src="bell" /><span></span>
+    <div class="midBox">
+      <div class="leftBox">
+        <div class="apppli">Application</div>
+        <img class="arrow" :src="arrow">
+        <div class="root">Dashboard</div>
       </div>
-      <div class="avatar avatarBox">
-        <img class="avatar" :src="avatar" /><span>+</span>
+      <div class="rightBox">
+        <div class="inputBox">
+          <input type="text" placeholder="Search ...">
+          <img :src="iconSearch">
+        </div>
+        <div class="boxBell">
+          <img class="bell" :src="bell">
+          <span class="dot"></span>
+        </div>
+        <div class="boxAvatar">
+          <img class="avatar" :src="avatar">
+        </div>
       </div>
-      <img class="icon" :src="arrow" />
     </div>
   </div>
 </template>
@@ -29,7 +34,7 @@ import iconSearch from "../assets/img/search.svg";
 import arrow from "../assets/img/arrow.svg";
 import avatar from "../assets//img/avatar.png";
 import bell from "../assets/img/bell.png";
-import logoIcon from "../assets/logo.png";
+import logoIcon from "../assets/img/logo.svg";
 
 export default {
   data() {
@@ -46,10 +51,10 @@ export default {
     closeDrawer() {
       this.drawerStatus = !this.drawerStatus;
       this.$emit("closeDrawer", this.drawerStatus);
-      if(this.drawerStatus){
-        document.querySelector('.iconLeft').classList.add('upDown')
-      }else{
-        document.querySelector('.iconLeft').classList.remove('upDown')
+      if (this.drawerStatus) {
+        document.querySelector(".iconLeft").classList.add("upDown");
+      } else {
+        document.querySelector(".iconLeft").classList.remove("upDown");
       }
     },
   },
@@ -57,112 +62,112 @@ export default {
 </script>
 
 <style scoped>
+.boxAvatar{
+  width: 3%;
+  padding: 10px;
+}
+.avatar{
+  width: 100%;
+}
+.bell{
+  width:100%;
+}
+.boxBell{
+  width: 2%;
+  position: relative;
+  margin: 10px;
+}
+.rightBox{
+  display: flex;
+  align-items: center;
+  margin-right: 3%;
+  justify-content: flex-end;
+}
+.inputBox{
+  background-color: #7f8fa6;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content:space-between;
+  width: 220px;
+  height: 35px;
+  margin: 10px;
+  
+}
+.inputBox input{
+  border: none;
+  outline: none;
+  width: 80%;
+  margin-left:5px ;
+  background-color: inherit;
+}
+.inputBox img{
+  padding:7px ;
+}
+.dot{
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: red;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.apppli{
+  font-size: 13px;
+  color: #7f8fa6;
+  font-weight: 500;
+}
+.root{
+  font-size: 13px;
+  color: #dcdde1;
+  font-weight: 500;
+}
 .header {
-  height: 12vh;
-  width: 100vw;
-  background-color: #ffffff;
-  position: fixed;
+  height: 70px;
+  width: 100%;
+  /* background-color: #1e3799; */
+  /* position: fixed; */
   top: 0;
   display: flex;
   align-items: center;
+  border-bottom: 1px solid rgba(150,150,187,0.2);
 }
-.upDown {
-  transform: rotate(180deg);
-  transition: all .5s;
+.arrow{
+  transform: rotate(270deg);
+  width: 11%;
 }
 .logoBox {
   height: 100%;
-  width: 18%;
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-}
-.iconLeft {
-  height: 22%;
-  width: 6%;
-  transition: all .5s;
-  cursor: pointer;
-}
-.bellBox img {
-  width: 100%;
-  height: 100%;
-}
-.bellBox {
-  position: relative;
-}
-.searchIcon {
-  height: 35%;
-  cursor: pointer;
-}
-.bellBox span {
-  position: absolute;
-  height: 5px;
-  width: 5px;
-  background-color: red;
-  border-radius: 50%;
-}
-.logo {
-  height: 65%;
-  cursor: pointer;
-}
-.logoTitle h3 {
-  margin: 5px 0;
-}
-.logoTitle p {
-  margin: 0;
-  color: gray;
-}
-.searchBox {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  height: 100%;
-  width: 60%;
-}
-.searchBox input {
-  border: none;
-  outline: none;
-  height: 80%;
-  width: 90%;
-  padding: 0 20px;
-}
-.iconBox {
-  height: 100%;
-  width: 22%;
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  cursor: pointer;
-}
-.icon {
-  width: 6%;
-  height: 22%;
-  cursor: pointer;
-}
-.avatar {
-  width: 15%;
-  height: 50%;
-  position: relative;
-  cursor: pointer;
-}
-.avatarBox img {
-  width: 100%;
-  height: 100%;
-}
-.avatarBox span {
-  width: 15px;
-  height: 15px;
-  background-color: palevioletred;
-  font-size: 17px;
-  font-weight: bold;
-  border-radius: 50%;
-  border: 2px solid white;
-  position: absolute;
-  right: -3px;
-  bottom: -3px;
+  width: 10.5%;
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
+  border-right: 1px solid rgba(150,150,187,0.2);
 }
+.logo {
+  height: 35%;
+  cursor: pointer;
+  padding: 0 9px;
+}
+.logoTitle p {
+  margin: 0;
+  color: white;
+  font-size: 17px;
+}
+.midBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  width: 89.5%;
+}
+.leftBox{
+  display: flex;
+  align-items: center;
+  margin-left: 3%;
+}
+
+
+
 </style>
