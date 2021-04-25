@@ -8,7 +8,7 @@
 export default{
   computed:{
     editValue(){
-      return this.$store.state.editValue
+      return this.$store.state.editItem
     }
   }
 }

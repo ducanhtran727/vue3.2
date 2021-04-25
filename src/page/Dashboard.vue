@@ -124,6 +124,7 @@ export default {
   created() {
     this.actionGetDataContent();
     this.pagination.numberRow = 10
+    this.pagination.totalPage = 50
   },
   watch: {
     "pagination.currentPage": function() {
@@ -175,7 +176,7 @@ export default {
   width: 90%;
   /* height: 90%; */
   border-radius: 10px;
-  background-color: white;
+  /* background-color: white; */
   /* position: relative; */
 }
 .title-table {

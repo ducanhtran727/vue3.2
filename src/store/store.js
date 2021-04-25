@@ -6,6 +6,7 @@ export const store = createStore({
       value:[],
       valuePage:[],
       editValue:'',
+      editItem:'',
       loading:true,
   },
   getters: {
@@ -28,7 +29,10 @@ export const store = createStore({
   },
     editData(state , value){
         state.editValue = value
-    }
+    },
+    editItem(state, value){
+      state.editItem = value
+    },
   },
   actions:{
     actionGetData : async ({commit}) => {
