@@ -76,7 +76,7 @@ import intercomIcon from "../assets/img/intercom.png";
 import settingIcon from "../assets/img/settings.png";
 import logoutIcon from "../assets/img/logout.png";
 export default {
-  props: ["drawerStatus", "params"],
+  props: ["drawerStatus", "paramsRouter"],
   data() {
     return {
       dashboardIcon,
@@ -93,7 +93,7 @@ export default {
     };
   },
   watch: {
-    params: function() {
+    paramsRouter: function() {
       document
         .querySelectorAll(".item-drawer")
         .forEach((item) => item.classList.remove("active"));

@@ -15,8 +15,6 @@ import { mapActions } from "vuex";
 export default {
   data() {
     return {
-      list: [],
-      abc: "asd",
     };
   },
   computed: {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="loading">Loading ...</div>
+    <div v-if="getLoading">Loading ...</div>
     <div v-else class="box-table">
       <div class="boxFilter">
         <input
@@ -10,15 +10,12 @@
         />
       </div>
       <div class="table">
-        <div class="title-table">
-          <div class="col-1">Name</div>
-          <div class="col-3">Email</div>
-          <div class="col-2">Id</div>
-        </div>
+        <HeaderTable :title="groupTitle" />
         <RowTable
-          v-for="(item, index) in contentPage"
-          :key="index"
+          v-for="item in contentPage"
+          :key="item.id"
           :itemContent="item"
+          :header="groupTitle"
         ></RowTable>
         <div class="bot-table">
           <div>Items per Page</div>
@@ -30,8 +27,8 @@
               >{{ item.value }}</option
             >
           </select>
-          <button class="prev" @click="prevPage" :disabled="prev">prev</button>
-          <button class="next" @click="nextPage" :disabled="next">next</button>
+          <button class="prev" @click="prevPage" :disabled="isPrev">prev</button>
+          <button class="next" @click="nextPage" :disabled="isNext">next</button>
           <div v-if="pagination.totalFilter">
             Total Filtered : {{ pagination.totalFilter }}
           </div>
@@ -40,7 +37,6 @@
             {{ pagination.totalPage }}
           </div>
         </div>
-        <!-- <div>{{ dataContent }}</div> -->
       </div>
     </div>
   </div>
@@ -48,18 +44,41 @@
 
 <script>
 import RowTable from "../components/RowTable";
-import axios from "axios";
+import HeaderTable from "../components/HeaderTable";
+import { mapActions ,mapGetters} from 'vuex'
 export default {
   components: {
     RowTable,
+    HeaderTable,
   },
   data() {
     return {
       dataContent: [],
-      loading: true,
-      prev: true,
-      next: false,
+      isPrev: true,
+      isNext: false,
       searchValue: null,
+      groupTitle: [
+        {
+          id: 1,
+          text: "Email",
+          value:'email'
+        },
+        {
+          id: 2,
+          text: "Name",
+          value:"name"
+        },
+        {
+          id: 3,
+          text: "Id",
+          value:'id'
+        },
+        {
+          id: 4,
+          text: "Post Id",
+          value: "postId"
+        },
+      ],
       pagination: {
         currentPage: 0,
         totalPage: 50,
@@ -87,39 +106,24 @@ export default {
     },
     conditionChange() {
       if (this.pagination.currentPage === 0) {
-        this.prev = true;
+        this.isPrev = true;
       } else {
-        this.prev = false;
+        this.isPrev = false;
       }
       if (
         this.pagination.currentPage >=
         this.contentFilter.length / this.pagination.numberRow - 1
       ) {
-        this.next = true;
+        this.isNext = true;
       } else {
-        this.next = false;
+        this.isNext = false;
       }
     },
+  ...mapActions(["actionGetDataContent"]),
   },
   created() {
-    const data = async () => {
-      try {
-        const res = await axios.get(
-          "https://jsonplaceholder.typicode.com/comments"
-        );
-        this.dataContent = res?.data;
-        this.pagination = {
-          currentPage: 0,
-          numberRow: 10,
-          totalPage: this.dataContent.length / 10,
-          totalFilter: 0,
-        };
-        this.loading = false;
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    data();
+    this.actionGetDataContent();
+    this.pagination.numberRow = 10
   },
   watch: {
     "pagination.currentPage": function() {
@@ -127,7 +131,7 @@ export default {
     },
     "pagination.numberRow": function() {
       this.pagination.totalPage =
-        this.dataContent.length / this.pagination.numberRow;
+        this.getContent.length / this.pagination.numberRow;
     },
     searchValue: function() {
       if (this.searchValue === "") {
@@ -142,15 +146,16 @@ export default {
   },
   computed: {
     contentFilter() {
-      return this.dataContent.filter((item) =>
+      return this.getContent.filter((item) =>
         this.searchValue ? item.postId === this.searchValue : item
       );
     },
     contentPage() {
-      const param1 = this.pagination.currentPage * this.pagination.numberRow;
-      let param3 = param1 + this.pagination.numberRow;     
-      return this.contentFilter.slice(param1, param3);
+      const startIndex = this.pagination.currentPage * this.pagination.numberRow;
+      let endIndex = startIndex + this.pagination.numberRow;
+      return this.contentFilter.slice(startIndex, endIndex);
     },
+    ...mapGetters(["getContent","getLoading"]),
   },
 };
 </script>
@@ -158,7 +163,7 @@ export default {
 .boxFilter {
   margin: 10px 0;
 }
-.box-table{
+.box-table {
   width: 100%;
   height: 100%;
   display: flex;

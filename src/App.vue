@@ -2,7 +2,7 @@
   <div>
     <Header @closeDrawer="drawerStatus = $event" />
     <div class="box-main">
-      <Drawer :drawerStatus="drawerStatus" :params="params" />
+      <Drawer :drawerStatus="drawerStatus" :paramsRouter="paramsRouter" />
       <router-view class="main" />
     </div>
     
@@ -15,7 +15,7 @@ export default {
   data() {
     return {
       drawerStatus: false,
-      params:this.$route.name
+      paramsRouter:this.$route.name
     };
   },
   components: {

@@ -1,25 +1,23 @@
 <template>
-  <div class="row">
-    <div class="col-1" v-for="item in header" :key="item" >{{ itemContent[item.value] }}</div>
+  <div class="title-table">
+    <div class="col-3" v-for="item in title" :key="item.id">{{item.text}}</div> 
   </div>
 </template>
+
 <script>
 export default {
-  props: ["itemContent",'header'],
-  computed: {
- 
-  }
+    props:['title'],
 };
 </script>
 
 <style scoped>
-.row {
+.title-table {
   display: flex;
   align-items: center;
   /* justify-content: space-around; */
-  height: 28px;
-  border-bottom: 1px solid gray;
+  height: 40px;
   width: 100%;
+  border-bottom: 1px solid gray;
 }
 .col-1 {
   width: 50%;
@@ -27,7 +25,8 @@ export default {
   align-items: center;
   justify-content: flex-start;
   margin-left: 2%;
-  font-size: 12px;
+  font-size: 18px;
+  font-weight: 550;
 }
 .col-2 {
   width: 20%;
@@ -35,14 +34,16 @@ export default {
   align-items: center;
   justify-content: flex-end;
   margin-right: 2%;
-  font-size: 14px;
+  font-weight: 550;
+  font-size: 18px;
 }
 .col-3 {
-  width: 30%;
+  width: 25%;
   display: flex;
   align-items: center;
   justify-content: flex-start;
   margin-left: 2%;
-  font-size: 14px;
+  font-weight: 550;
+  font-size: 18px;
 }
 </style>
